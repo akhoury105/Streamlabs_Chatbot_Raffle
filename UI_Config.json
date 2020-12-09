@@ -38,6 +38,13 @@
         "tooltip": "!raffle draw picks the winner of the raffle.\n{0} = winner"
     },
 
+    "AddedMessage": {
+        "type":"textbox",
+        "value":"@{0} has been added to the list.",
+        "label":"Viewer Added Message",
+        "tooltip": "!raffle UserName adds the name to the raffle list.\n{0} = username"
+    },
+
     "ErrorMessage": {
         "type":"textbox",
         "value":"Error Occured. Please check the logs",

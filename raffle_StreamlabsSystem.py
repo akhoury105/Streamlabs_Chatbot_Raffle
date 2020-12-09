@@ -14,6 +14,7 @@ raffleTicketFile = os.path.join(path, 'raffle_tickets.txt')
 respHowToBuy = ''
 respWhatToWin = ''
 respWinner = ''
+respAddedTicket = ''
 permission = 'Caster'
 error = ''
 
@@ -32,7 +33,7 @@ def ReloadSettings(jsonData):
 
 
 def loadSettings():
-    global respWhatToWin, respHowToBuy, permission, error, respWinner
+    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket
     try:
         with codecs.open(settingsFile, encoding='utf-8-sig', mode='r') as file:
             settings = json.loads(file, encoding='utf-8-sig')
@@ -43,7 +44,8 @@ def loadSettings():
             "HowToBuy" : "Use Channel Points to buy entries into this month's Raffle!",
             "WhatToWin" : "This month's prize is TBD! The Drawing will be held TBD.",
             "WinMessage": "This raffle's winner is @{0}!",
-            "ErrorMessage": "Error Occurred. Please check the logs."
+            "ErrorMessage": "Error Occurred. Please check the logs.",
+            "AddedMessage": "@{0} has been added to the list."
         }
 
     permission = settings['Permission']
@@ -51,6 +53,7 @@ def loadSettings():
     respWhatToWin = settings['WhatToWin']
     respWinner = settings['WinMessage']
     error = settings['ErrorMessage']
+    respAddedTicket = settings['AddedMessage']
 
 
 def Unload():
@@ -69,7 +72,8 @@ def Execute(data):
             drawRaffle()
 
         # !raffle username adds viewer to a text file.
-    
+        elif data.GetParamCount() == 2 and Parent.HasPermission(data.User,permission,''):
+            addViewerToTextFile(data.GetParam(1))
     return
 
 
@@ -93,13 +97,6 @@ def drawRaffle():
     return
 
 
-def addUserToTextFile():
-    # open the file
-    # check to see if its empty
-    # add new line if its not empty
-    # add new viewer to new line
-    return
-
 def formatTickets(tickets):
     newTickets = []
     for x in tickets:
@@ -107,6 +104,31 @@ def formatTickets(tickets):
         newTickets.append(x)
     return newTickets
 
+
+def addViewerToTextFile(viewer):
+    viewer = sanitizeUser(viewer)
+    try:
+        # open the file
+        with open(raffleTicketFile, 'a+') as file:
+            # check to see if its empty
+            file.seek(0)
+            data = file.read(100)
+            # add new line if its not empty
+            if len(data) > 0:
+                file.write('\n')
+            # add new viewer to new line
+            file.write(viewer)
+    except:
+        send_message(error)
+        log("Couldn't add viewer to raffle_tickets.txt")
+        return
+    send_message(respAddedTicket.format(viewer))
+    return
+
+
+def sanitizeUser(user):
+    user = user.replace('@','')
+    return user
 
 
 def Tick():
