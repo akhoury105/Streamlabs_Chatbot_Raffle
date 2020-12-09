@@ -14,6 +14,8 @@ respHowToBuy = ''
 respWhatToWin = ''
 
 
+# TODO: Later verion create variables in UI to change prize and draw date.
+
 def Init():
     loadSettings()
     return
@@ -33,9 +35,9 @@ def loadSettings():
         log("Error Loading Settings. Loaded Default Instead")
         settings = {
             "HowToBuy" : "Use Channel Points to buy entries into this month's Raffle!",
-            "WhatToWin" : "This months prize is TBD! The Drawing will be held TBD."
+            "WhatToWin" : "This month's prize is TBD! The Drawing will be held TBD."
         }
-    
+
     respHowToBuy = settings['HowToBuy']
     respWhatToWin = settings['WhatToWin']
 

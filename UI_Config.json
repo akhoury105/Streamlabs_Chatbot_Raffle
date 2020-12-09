@@ -1,0 +1,24 @@
+{
+    "output_file": "settings.json",
+
+    "Command": {
+        "type":"textbox",
+        "value": "!raffle",
+        "label": "Command",
+        "tooltip": "The base command to check raffle status."
+    },
+
+    "HowToBuy": {
+        "type":"textbox",
+        "value":"Use Channel Points to buy entries into this month's Raffle!",
+        "label":"How To Buy Raffle Ticket",
+        "tooltip": "Sent 1st after !raffle is used."
+    },
+    
+    "WhatToWin": {
+        "type":"textbox",
+        "value":"This month's prize is TBD! The Drawing will be held TBD.",
+        "label":"What To Win and When Is Draw",
+        "tooltip": "Sent 2nd after !raffle is used."
+    }
+}
