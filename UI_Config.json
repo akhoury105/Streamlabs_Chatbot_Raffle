@@ -8,6 +8,15 @@
         "tooltip": "The base command to check raffle status."
     },
 
+    "Permission": {
+        "type": "dropdown",
+        "value": "Caster",
+        "items": ["Caster","Moderator"],
+        "label": "Permission level",
+        "tooltip": "Set the permission level for the command to Draw and Add",
+        "group": ""
+    },
+
     "HowToBuy": {
         "type":"textbox",
         "value":"Use Channel Points to buy entries into this month's Raffle!",
@@ -20,5 +29,20 @@
         "value":"This month's prize is TBD! The Drawing will be held TBD.",
         "label":"What To Win and When Is Draw",
         "tooltip": "Sent 2nd after !raffle is used."
+    },
+
+    "WinMessage": {
+        "type":"textbox",
+        "value":"This raffle's winner is @{0}!",
+        "label":"Draw Message",
+        "tooltip": "!raffle draw picks the winner of the raffle.\n{0} = winner"
+    },
+
+    "ErrorMessage": {
+        "type":"textbox",
+        "value":"Error Occured. Please check the logs",
+        "label":"Error Message",
+        "tooltip": "Message the bot sends if an error occurs"
     }
+
 }
