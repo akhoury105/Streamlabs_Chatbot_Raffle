@@ -1,12 +1,14 @@
 {
     "output_file": "settings.json",
 
-    "Command": {
-        "type":"textbox",
-        "value": "!raffle",
-        "label": "Command",
-        "tooltip": "The base command to check raffle status."
-    },
+    "openReadMe": {
+        "type": "button",
+        "label": "Open README.txt",
+        "tooltip": "Opens the README.txt for this script",
+        "function": "OpenReadMe",
+        "wsevent": "",
+        "group": ""
+      },
 
     "Permission": {
         "type": "dropdown",

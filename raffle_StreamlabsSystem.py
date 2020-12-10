@@ -10,6 +10,7 @@ Command = '!raffle'
 path = os.path.dirname(__file__)
 settingsFile = os.path.join(path, 'setting.json')
 raffleTicketFile = os.path.join(path, 'raffle_tickets.txt')
+readMeFile = os.path.join(path, 'README.txt')
 
 respHowToBuy = ''
 respWhatToWin = ''
@@ -21,6 +22,7 @@ error = ''
 # TODO: Add sound effect for draw.
 # TODO: Add delay to winner reveal.
 # TODO: Later verion create variables in UI to change prize and draw date.
+# TODO: Add command to clear text file.
 
 def Init():
     loadSettings()
@@ -136,7 +138,7 @@ def Tick():
 
 
 def OpenReadMe():
-	#os.startfile(readMeFile)
+	os.startfile(readMeFile)
 	return
 
 
