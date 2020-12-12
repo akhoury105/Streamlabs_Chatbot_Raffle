@@ -4,14 +4,15 @@ ScriptName = 'Raffle'
 Website = 'twitch.tv/blueboxfromspace'
 Description = 'Add viewers to and select random viewer from a text file for a raffle draw.'
 Creator = 'BlueBoxFromSpace'
-Version = '1.0.0'
+Version = '1.0.1'
 Command = '!raffle'
 
 path = os.path.dirname(__file__)
-settingsFile = os.path.join(path, 'setting.json')
+settingsFile = os.path.join(path, 'settings.json')
 raffleTicketFile = os.path.join(path, 'raffle_tickets.txt')
 readMeFile = os.path.join(path, 'README.txt')
 
+settings = {}
 respHowToBuy = ''
 respWhatToWin = ''
 respWinner = ''
@@ -35,10 +36,10 @@ def ReloadSettings(jsonData):
 
 
 def loadSettings():
-    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket
+    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket, settings
     try:
         with codecs.open(settingsFile, encoding='utf-8-sig', mode='r') as file:
-            settings = json.loads(file, encoding='utf-8-sig')
+            settings = json.load(file, encoding='utf-8-sig')
     except:
         log("Error Loading Settings. Loaded Default Instead")
         settings = {
