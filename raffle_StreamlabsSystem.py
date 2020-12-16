@@ -17,6 +17,7 @@ respHowToBuy = ''
 respWhatToWin = ''
 respWinner = ''
 respAddedTicket = ''
+respClearTickets = ''
 permission = 'Caster'
 error = ''
 
@@ -36,7 +37,7 @@ def ReloadSettings(jsonData):
 
 
 def loadSettings():
-    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket, settings
+    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket, settings, respClearTickets
     try:
         with codecs.open(settingsFile, encoding='utf-8-sig', mode='r') as file:
             settings = json.load(file, encoding='utf-8-sig')
@@ -48,7 +49,8 @@ def loadSettings():
             "WhatToWin" : "This month's prize is TBD! The Drawing will be held TBD.",
             "WinMessage": "This raffle's winner is @{0}!",
             "ErrorMessage": "Error Occurred. Please check the logs.",
-            "AddedMessage": "@{0} has been added to the list."
+            "AddedMessage": "@{0} has been added to the list.",
+            "ClearMessage": "The ticket list has been cleared."
         }
 
     permission = settings['Permission']
@@ -57,6 +59,7 @@ def loadSettings():
     respWinner = settings['WinMessage']
     error = settings['ErrorMessage']
     respAddedTicket = settings['AddedMessage']
+    respClearTickets = settings['ClearMessage']
 
 
 def Unload():
@@ -70,13 +73,23 @@ def Execute(data):
             send_message(respHowToBuy)
             send_message(respWhatToWin)
 
+        # !raffle clear clears the text file.
+        elif data.GetParam(1) == 'clear' and Parent.HasPermission(data.User, permission, ''):
+            clearTickets()
+
         # !raffle draw select random viewer from text file.
         elif data.GetParam(1).lower() == "draw" and Parent.HasPermission(data.User,permission,''):
             drawRaffle()
 
         # !raffle username adds viewer to a text file.
-        elif data.GetParamCount() == 2 and Parent.HasPermission(data.User,permission,''):
-            addViewerToTextFile(data.GetParam(1))
+        elif data.GetParamCount() > 1 and Parent.HasPermission(data.User,permission,''):
+            if data.GetParamCount() == 2:
+                addViewerToTextFile(data.GetParam(1), 1)
+            elif data.GetParam(2).isnumeric():
+                addViewerToTextFile(data.GetParam(1), int(data.GetParam(2)) )
+        
+        # !raffle odds tells viewer odds of winning and how many tickets they have.
+        
     return
 
 
@@ -108,25 +121,37 @@ def formatTickets(tickets):
     return newTickets
 
 
-def addViewerToTextFile(viewer):
+def addViewerToTextFile(viewer, num):
     viewer = sanitizeUser(viewer)
-    try:
-        # open the file
-        with open(raffleTicketFile, 'a+') as file:
-            # check to see if its empty
-            file.seek(0)
-            data = file.read(100)
-            # add new line if its not empty
-            if len(data) > 0:
-                file.write('\n')
-            # add new viewer to new line
-            file.write(viewer)
-    except:
-        send_message(error)
-        log("Couldn't add viewer to raffle_tickets.txt")
-        return
+    for i in range(num):
+        try:
+            # open the file
+            with open(raffleTicketFile, 'a+') as file:
+                # check to see if its empty
+                file.seek(0)
+                data = file.read(100)
+                # add new line if its not empty
+                if len(data) > 0:
+                    file.write('\n')
+                # add new viewer to new line
+                file.write(viewer)
+        except:
+            send_message(error)
+            log("Couldn't add viewer to raffle_tickets.txt")
+            return
     send_message(respAddedTicket.format(viewer))
     return
+
+
+def clearTickets():
+    try:
+        with open(raffleTicketFile, 'w+') as file:
+            file.write('')
+    except:
+        send_message(error)
+        log("Couldn't clear raffle_tickets.txt")
+        return
+    send_message(respClearTickets)
 
 
 def sanitizeUser(user):

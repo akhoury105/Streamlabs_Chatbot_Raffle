@@ -47,6 +47,13 @@
         "tooltip": "!raffle UserName adds the name to the raffle list.\n{0} = username"
     },
 
+    "ClearMessage": {
+        "type":"textbox",
+        "value":"The ticket list has been cleared.",
+        "label":"Clear Tickets Message",
+        "tooltip": "!raffle clear removes all names from the list."
+    },
+
     "ErrorMessage": {
         "type":"textbox",
         "value":"Error Occured. Please check the logs",
