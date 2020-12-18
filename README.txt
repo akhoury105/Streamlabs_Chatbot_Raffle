@@ -1,6 +1,8 @@
 ##########
 # RAFFLE #
 ##########
+## Version 1.2.0 ##
+-Adds command for checking number of tickets and odd of winning.
 
 ## Version 1.1.0 ##
 -Adds ability to add multiple tickets at once.
@@ -52,9 +54,9 @@ Placing all your scripts in this folder makes it easier if you plan on altering 
 ####################### Using the Script #########################
 
 ## Commands ##
-- There are 4 commands associated with this script right now.
-- Changing the Permission access in the UI will affect the base
-    !raffle command as this does not require permission.
+- There are 5 commands associated with this script right now.
+- Changing the Permission access in the UI will not affect the base
+    !raffle and !raffle odds command as these do not require permission.
 
 # !raffle #
 - When this command is used the bot will send two messages.
@@ -91,6 +93,17 @@ Placing all your scripts in this folder makes it easier if you plan on altering 
 - This command clears the list of tickets. (i.e. it removes all names from raffle_tickets.txt)
 - The message returned from this command can be edited in the UI under:
     Clear Tickets Message
+
+
+# !raffle odds #
+- This command can return a message that tells the user of the command how many tickets they have
+    and what their odds of winning are.
+- The message returned from this command can be edited in the UI under:
+    Odds Message
+- The message has 3 variables:
+    {0} = user of the command
+    {1} = the number of tickers the user has
+    {2} = the odds that user has of winning
 
 
 ## Errors ##

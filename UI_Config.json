@@ -54,6 +54,13 @@
         "tooltip": "!raffle clear removes all names from the list."
     },
 
+    "OddsMessage": {
+        "type":"textbox",
+        "value":"{0}, you have {1} tickets. Your odds of winning are {2}%.",
+        "label":"Odds Message",
+        "tooltip": "!raffle odds\n{0} = user\n{1} = number of tickets \n{2} = odds"
+    },
+
     "ErrorMessage": {
         "type":"textbox",
         "value":"Error Occured. Please check the logs",

@@ -18,6 +18,7 @@ respWhatToWin = ''
 respWinner = ''
 respAddedTicket = ''
 respClearTickets = ''
+respOdds = ''
 permission = 'Caster'
 error = ''
 
@@ -37,7 +38,7 @@ def ReloadSettings(jsonData):
 
 
 def loadSettings():
-    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket, settings, respClearTickets
+    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket, settings, respClearTickets, respOdds
     try:
         with codecs.open(settingsFile, encoding='utf-8-sig', mode='r') as file:
             settings = json.load(file, encoding='utf-8-sig')
@@ -50,7 +51,8 @@ def loadSettings():
             "WinMessage": "This raffle's winner is @{0}!",
             "ErrorMessage": "Error Occurred. Please check the logs.",
             "AddedMessage": "@{0} has been added to the list.",
-            "ClearMessage": "The ticket list has been cleared."
+            "ClearMessage": "The ticket list has been cleared.",
+            "OddsMessage": "{0}, you have {1} tickets. Your odds of winning are {2}%."
         }
 
     permission = settings['Permission']
@@ -60,6 +62,7 @@ def loadSettings():
     error = settings['ErrorMessage']
     respAddedTicket = settings['AddedMessage']
     respClearTickets = settings['ClearMessage']
+    respOdds = settings['OddsMessage']
 
 
 def Unload():
@@ -101,8 +104,7 @@ def raffleOdds(user):
     userTickets = getUserTickets(user)
     odds = float(userTickets)/float(totalTickets)
     odds = odds * 100
-    resp = '{}, you have {} tickets. Your odds of winning are {}%.'.format(user, userTickets, odds)
-    send_message(resp)
+    send_message(respOdds.format(user, userTickets, odds))
 
 
 # Returns the number of tickets a user has purchased.
