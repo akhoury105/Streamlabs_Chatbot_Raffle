@@ -2,7 +2,9 @@
 # RAFFLE #
 ##########
 
-## Version 1.0.0 ##
+## Version 1.1.0 ##
+-Adds ability to add multiple tickets at once.
+-Adds ability to clear the raffle_tickets.txt file with a command.
 
 by: blueboxfromspace
 twitch.tv/blueboxfromspace
@@ -50,7 +52,7 @@ Placing all your scripts in this folder makes it easier if you plan on altering 
 ####################### Using the Script #########################
 
 ## Commands ##
-- There are 3 commands associated with this script right now.
+- There are 4 commands associated with this script right now.
 - Changing the Permission access in the UI will affect the base
     !raffle command as this does not require permission.
 
@@ -72,6 +74,8 @@ Placing all your scripts in this folder makes it easier if you plan on altering 
 - The confirmation message can be edited in the UI under:
     Viewer Added message
 - The {0} is a variable for the viewer that is being added to the list.
+- Adding a number after the username will add that many tickets to the list.
+	example: !raffle blueboxfromspace 4 (will add 4 tickets)
 
 # !raffle draw #
 - Restricted by Permission
@@ -80,6 +84,13 @@ Placing all your scripts in this folder makes it easier if you plan on altering 
 - The message returned from this command can be edited in the UI under:
     Draw Message
 - The {0} variable is used for the randomly selected viewer i.e. the winner of the draw.
+
+
+# !raffle clear #
+- Restricted by Permission
+- This command clears the list of tickets. (i.e. it removes all names from raffle_tickets.txt)
+- The message returned from this command can be edited in the UI under:
+    Clear Tickets Message
 
 
 ## Errors ##
