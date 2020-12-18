@@ -104,6 +104,8 @@ Placing all your scripts in this folder makes it easier if you plan on altering 
     {0} = user of the command
     {1} = the number of tickers the user has
     {2} = the odds that user has of winning
+- The maximum number of decimal places the odds will extend to can be set in the UI under:
+    Decimal Places
 
 
 ## Errors ##

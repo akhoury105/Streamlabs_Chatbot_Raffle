@@ -61,6 +61,13 @@
         "tooltip": "!raffle odds\n{0} = user\n{1} = number of tickets \n{2} = odds"
     },
 
+    "Decimals": {
+        "type": "textbox",
+        "value": 1,
+        "label":"Decimal Places",
+        "tooltip": "Number of decimal places the odds percentage is rounded to."
+    },
+
     "ErrorMessage": {
         "type":"textbox",
         "value":"Error Occured. Please check the logs",

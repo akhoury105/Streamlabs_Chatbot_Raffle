@@ -5,5 +5,7 @@
   "WinMessage": "This raffle's winner is @{0}!",
   "AddedMessage": "@{0} has been added to the list.",
   "ErrorMessage": "Error Occured. Please check the logs",
-  "ClearMessage": "The ticket list has been cleared."
+  "ClearMessage": "The ticket list has been cleared.",
+  "OddsMessage": "{0}, you have {1} tickets. Your odds of winning are {2}%.",
+  "Decimals": "1"
 }

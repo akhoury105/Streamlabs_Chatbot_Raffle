@@ -21,11 +21,11 @@ respClearTickets = ''
 respOdds = ''
 permission = 'Caster'
 error = ''
+decimalPlaces = 1
 
 # TODO: Add sound effect for draw.
 # TODO: Add delay to winner reveal.
 # TODO: Later verion create variables in UI to change prize and draw date.
-# TODO: Add command to clear text file.
 
 def Init():
     loadSettings()
@@ -38,7 +38,7 @@ def ReloadSettings(jsonData):
 
 
 def loadSettings():
-    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket, settings, respClearTickets, respOdds
+    global respWhatToWin, respHowToBuy, permission, error, respWinner, respAddedTicket, settings, respClearTickets, respOdds, decimalPlaces
     try:
         with codecs.open(settingsFile, encoding='utf-8-sig', mode='r') as file:
             settings = json.load(file, encoding='utf-8-sig')
@@ -52,7 +52,8 @@ def loadSettings():
             "ErrorMessage": "Error Occurred. Please check the logs.",
             "AddedMessage": "@{0} has been added to the list.",
             "ClearMessage": "The ticket list has been cleared.",
-            "OddsMessage": "{0}, you have {1} tickets. Your odds of winning are {2}%."
+            "OddsMessage": "{0}, you have {1} tickets. Your odds of winning are {2}%.",
+            "Decimals": 1
         }
 
     permission = settings['Permission']
@@ -63,6 +64,7 @@ def loadSettings():
     respAddedTicket = settings['AddedMessage']
     respClearTickets = settings['ClearMessage']
     respOdds = settings['OddsMessage']
+    decimalPlaces = int(settings['Decimals'])
 
 
 def Unload():
@@ -104,7 +106,7 @@ def raffleOdds(user):
     userTickets = getUserTickets(user)
     odds = float(userTickets)/float(totalTickets)
     odds = odds * 100
-    send_message(respOdds.format(user, userTickets, odds))
+    send_message(respOdds.format(user, userTickets, round(odds, decimalPlaces)))
 
 
 # Returns the number of tickets a user has purchased.
