@@ -81,6 +81,8 @@ def Execute(data):
         elif data.GetParam(1).lower() == "draw" and Parent.HasPermission(data.User,permission,''):
             drawRaffle()
 
+        # !raffle odds tells viewer odds of winning and how many tickets they have.
+
         # !raffle username adds viewer to a text file.
         elif data.GetParamCount() > 1 and Parent.HasPermission(data.User,permission,''):
             if data.GetParamCount() == 2:
@@ -88,19 +90,27 @@ def Execute(data):
             elif data.GetParam(2).isnumeric():
                 addViewerToTextFile(data.GetParam(1), int(data.GetParam(2)) )
         
-        # !raffle odds tells viewer odds of winning and how many tickets they have.
-        
     return
 
+'''
+def raffleOdds(user):
+    totalTickets = 
+'''
 
-def drawRaffle():
-    # open our text file and store it in list
+def getTickets():
+    # updates the ticket list from our text file.
     try:
         with open(raffleTicketFile, 'r') as file:
             tickets = file.readlines()
     except:
         send_message(error)
         log("Error loading tickets from raffle_tickets.txt")
+    return tickets
+
+
+def drawRaffle():
+    # open our text file and store it in list
+    tickets = getTickets()
     # generate random number for index
     # use that number to get a viewer from our list
     if len(tickets) == 0:
