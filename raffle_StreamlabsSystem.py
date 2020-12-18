@@ -82,6 +82,8 @@ def Execute(data):
             drawRaffle()
 
         # !raffle odds tells viewer odds of winning and how many tickets they have.
+        elif data.GetParam(1).lower() == "odds":
+            raffleOdds(data.UserName)
 
         # !raffle username adds viewer to a text file.
         elif data.GetParamCount() > 1 and Parent.HasPermission(data.User,permission,''):
@@ -92,13 +94,28 @@ def Execute(data):
         
     return
 
-'''
-def raffleOdds(user):
-    totalTickets = 
-'''
 
+# Calculates odds and returns message with odds, and num of tickets for the user
+def raffleOdds(user):
+    totalTickets = len(getTickets())
+    userTickets = getUserTickets(user)
+    odds = float(userTickets)/float(totalTickets)
+    odds = odds * 100
+    resp = '{}, you have {} tickets. Your odds of winning are {}%.'.format(user, userTickets, odds)
+    send_message(resp)
+
+
+# Returns the number of tickets a user has purchased.
+def getUserTickets(user):
+    tickets = getTickets()
+    tickets = formatTickets(tickets)
+    tickets = lowerNamesInList(tickets)
+    numOfUserTickets = tickets.count(user.lower())
+    return numOfUserTickets
+
+
+# Updates the ticket list from our text file.
 def getTickets():
-    # updates the ticket list from our text file.
     try:
         with open(raffleTicketFile, 'r') as file:
             tickets = file.readlines()
@@ -123,10 +140,20 @@ def drawRaffle():
     return
 
 
+# Returns a useable list of tickets
 def formatTickets(tickets):
     newTickets = []
     for x in tickets:
         x = x.replace('\n','')
+        newTickets.append(x)
+    return newTickets
+
+
+# Returns a list where the tickets are all lower case for counting tickets
+def lowerNamesInList(tickets):
+    newTickets = []
+    for x in tickets:
+        x = x.replace(x,x.lower())
         newTickets.append(x)
     return newTickets
 
@@ -164,6 +191,7 @@ def clearTickets():
     send_message(respClearTickets)
 
 
+# Removes the @ symbol from the name
 def sanitizeUser(user):
     user = user.replace('@','')
     return user
